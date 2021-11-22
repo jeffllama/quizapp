@@ -10,6 +10,7 @@ const PORT = process.env.PORT || 5000;
 
 const questionRoutes = require('./routes/api/question');
 const quizRoutes = require('./routes/api/quiz');
+const userRoutes = require('./routes/api/user')
 
 app.use(cors())
 app.options('*', cors())
@@ -24,5 +25,6 @@ mongoose.connect(MONGO_URI, {
 
 app.use('/API/v1/questions', questionRoutes);
 app.use('/API/v1/quizzes', quizRoutes);
+app.use('/API/v1/users',userRoutes)
 
 app.listen(PORT, () => console.log(`Server running at port ${PORT}`));
