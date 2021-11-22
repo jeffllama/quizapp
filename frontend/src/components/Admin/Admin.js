@@ -19,14 +19,14 @@ function Admin() {
     };
 
     const userLogin = async() => {
-        const res = await axios.post("http://localhost:5000/API/v1/users/admin-login", {
+        const res = await axios.post("https://comp4537-quiz-backend.herokuapp.com/API/v1/users/admin-login", {
             user,
             password
         })
 
         if (res.status == 200) {
 
-            const response = await axios.get("http://localhost:5000/API/v1/users/user-api-totals")
+            const response = await axios.get("https://comp4537-quiz-backend.herokuapp.com/API/v1/users/user-api-totals")
 
             const counts = []
             for(const key in response.data) {

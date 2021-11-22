@@ -13,7 +13,7 @@ function Login() {
             console.log("NO");
         }
         else {
-            await axios.post("http://localhost:5000/API/v1/users/signup", {
+            await axios.post("https://comp4537-quiz-backend.herokuapp.com/API/v1/users/signup", {
                 user: regUser,
                 password : regPass
             })
@@ -30,9 +30,13 @@ function Login() {
 
             <div>
                 <h1>Register User</h1>
-                <input name="Username" type="text" value={regUser} onChange={(event) => {setRegUser(event.target.value)}}/>
-                <input name="Password" type="text" value={regPass} onChange={(event) =>{setRegPass(event.target.value)}}/>
-                <input name="Submit" type="button" onClick={() =>registerUser()} />
+                <div>
+                    <h1>name : password</h1>
+                    
+                </div>
+                <input name="Username" label="Username" type="text" value={regUser} onChange={(event) => {setRegUser(event.target.value)}}/>
+                <input name="Password" label="Password" type="text" value={regPass} onChange={(event) =>{setRegPass(event.target.value)}}/>
+                <input name="Submit" value="Submit" type="button" onClick={() =>registerUser()} />
             </div>
 
 
