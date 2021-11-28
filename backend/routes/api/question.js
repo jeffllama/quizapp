@@ -4,6 +4,12 @@ const router = express.Router();
 const Question = require('../../models/Question');
 
 
+const questionTotals = {
+    "GET API/V1/question/" : 0,
+    "GET API/V1/question/:id": 0,
+    "PUT API/V1/question/:id" : 0,
+    "DELETE API/V1/question/:id" : 0
+}
 
 // GET all API/v1/questions
 router.get('/', async (req, res) => {
@@ -12,6 +18,7 @@ router.get('/', async (req, res) => {
         if (!questions) {
             return res.status(404).json({"error": "No questions found"})
         } else {
+            questionTotals["GET API/V1/question/"] +=1;
             return res.status(200).json(questions);
         }
     } catch (err){
@@ -25,6 +32,7 @@ router.get('/:id', async (req, res) => {
         if (!question){
             return res.status(404).json({"error": "No question found"})
         } else {
+            questionTotals["GET API/V1/question/:id"] +=1
             return res.status(200).json(question);
         }
     } catch (err){
@@ -42,6 +50,7 @@ router.put('/:id', async (req, res) => {
                 description,
                 answers
             });
+            questionTotals["PUT API/V1/question/:id"] +=1;
             return res.status(201).json(question); 
         } else {
             question.description = description;
@@ -60,6 +69,7 @@ router.delete('/:id', async (req, res) => {
         if (!question){
             return res.status(404).json({"error": "No question found"})
         } else {
+            questionTotals["DELETE API/V1/question/:id"] +=1;
             return res.status(200).json(question);
         }
     } catch (err){
@@ -91,3 +101,4 @@ router.post('/', async (req, res)=>{
 });
 
 module.exports = router;
+module.exports.questionTotals = questionTotals

@@ -4,6 +4,15 @@ const router = express.Router();
 const Quiz = require('../../models/Quiz');
 const Question = require('../../models/Question');
 
+
+const quizTotals = {
+    "GET API/V1/quiz/:id": 0,
+    "GET API/V1/quiz/:id/Questions": 0,
+    "GET API/V1/quiz/generaterandom/:name/:amount" : 0,
+    "PUT API/V1/quiz/:id" : 0,
+    "DELETE API/V1/quiz/:id" : 0
+}
+
 router.get('/', async (req, res) => {
     try {
         const quizzes = await Quiz.find();
@@ -23,6 +32,7 @@ router.get('/:id', async (req, res) => {
         if (!quiz){
             return res.status(404).json({"error": "No quiz found"})
         } else {
+            quizTotals["GET API/V1/quiz/:id"] += 1
             return res.status(200).json(quiz);
         }
     } catch (err){
@@ -36,6 +46,7 @@ router.get('/:id/questions', async (req, res) => {
         if (!quiz){
             return res.status(404).json({"error": "No quiz found"})
         } else {
+            quizTotals["GET API/V1/quiz/:id/Questions"] +=1;
             return res.status(200).json(quiz);
         }
     } catch (err){
@@ -58,6 +69,7 @@ router.get('/generaterandom/:name/:amount', async (req, res)=>{
                     name,
                     questions
                 });
+                quizTotals["GET API/V1/quiz/generaterandom/:name/:amount"] +=1;
                 return res.status(201).json(quiz);
             } catch(err) {
                 return res.status(500).json({"error": err})
@@ -81,6 +93,7 @@ router.put('/:id', async (req, res) => {
             quiz.name = name;
             quiz.questions = questions
             await quiz.save();
+            quizTotals["PUT API/V1/quiz/:id"] +=1;
             return res.status(200).json(quiz);
         }
     } catch (err){
@@ -94,6 +107,7 @@ router.delete('/:id', async (req, res) => {
         if (!quiz){
             return res.status(404).json({"error": "No question found"})
         } else {
+            quizTotals["DELETE API/V1/quiz/:id"] +=1;
             return res.status(200).json(quiz);
         }
     } catch (err){
@@ -124,4 +138,6 @@ router.post('/', async (req, res)=>{
 });
 
 
+
 module.exports = router;
+module.exports.quizTotals = quizTotals
