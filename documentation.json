@@ -1,0 +1,669 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "description": "A quizlet app created for our love and joy of quizes",
+    "version": "1.0.0",
+    "title": "Quizlet+",
+    "termsOfService": "https://comp4537-quiz-backend.herokuapp.com/",
+    "contact": {
+      "email": "isaquizletcontactus@gmail.com"
+    },
+    "license": {
+      "name": "Apache 2.0",
+      "url": "http://www.apache.org/licenses/LICENSE-2.0.html"
+    }
+  },
+  "host": "comp4537-quiz-backend.herokuapp.com",
+  "basePath": "/API/v1",
+  "tags": [
+    {
+      "name": "questions",
+      "description": "API route to questions"
+    },
+    {
+      "name": "quiz",
+      "description": "API route to quiz"
+    },
+    {
+      "name": "user",
+      "description": "API route to users"
+    }
+  ],
+  "schemes": [
+    "https",
+    "http"
+  ],
+  "paths": {
+    "/questions": {
+      "get": {
+        "tags": [
+          "questions"
+        ],
+        "summary": "Get all questions",
+        "description": "Returns all questions from the database",
+        "operationId": "getquestion",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "$ref": "#/definitions/Question"
+            }
+          },
+          "404": {
+            "description": "No questions found"
+          },
+          "500": {
+            "description": "Error occured"
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "questions"
+        ],
+        "summary": "Adds a question",
+        "description": "Post method to add a question to the database",
+        "operationId": "postquestion",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "description": "Question object",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/Question"
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Successful input"
+          },
+          "400": {
+            "description": "Bad request"
+          }
+        },
+        "security": []
+      }
+    },
+    "/questions/{id}": {
+      "get": {
+        "tags": [
+          "questions"
+        ],
+        "summary": "Get question by ID",
+        "description": "Returns a specific question from the database searching by ID",
+        "operationId": "getquestionid",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "type": "integer",
+            "format": "int64"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "$ref": "#/definitions/Question"
+            }
+          },
+          "404": {
+            "description": "No questions found"
+          },
+          "500": {
+            "description": "Error occured"
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "questions"
+        ],
+        "summary": "Update question by id",
+        "description": "Updates a specific question in the DB by ID",
+        "operationId": "putquestionid",
+        "produces": [],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "description": "Question object",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/Question"
+            }
+          },
+          {
+            "in": "path",
+            "name": "id",
+            "type": "integer",
+            "description": "Question ID",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful=l input"
+          },
+          "201": {
+            "description": "Successful input"
+          },
+          "400": {
+            "description": "Bad request"
+          }
+        },
+        "security": []
+      },
+      "delete": {
+        "tags": [
+          "questions"
+        ],
+        "summary": "Delete question by id",
+        "description": "Delete a specific question in the DB by ID",
+        "operationId": "deletequestionid",
+        "produces": [],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "description": "Question object",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/Question"
+            }
+          },
+          {
+            "in": "path",
+            "name": "id",
+            "type": "integer",
+            "description": "Question ID",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful input"
+          },
+          "404": {
+            "description": "Bad request"
+          },
+          "500": {
+            "description": "Server Error"
+          }
+        },
+        "security": []
+      }
+    },
+    "/quiz": {
+      "get": {
+        "tags": [
+          "quiz"
+        ],
+        "summary": "Get all quizes",
+        "description": "Returns all quizes from the database",
+        "operationId": "getquiz",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "$ref": "#/definitions/Quiz"
+            }
+          },
+          "404": {
+            "description": "No questions found"
+          },
+          "500": {
+            "description": "Error occured"
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "quiz"
+        ],
+        "summary": "Adds a quiz",
+        "description": "Post method to add a quiz to the database",
+        "operationId": "postquiz",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "description": "Quiz object",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/Quiz"
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Successful input"
+          },
+          "500": {
+            "description": "Server error"
+          }
+        },
+        "security": []
+      }
+    },
+    "/quiz/{id}": {
+      "get": {
+        "tags": [
+          "quiz"
+        ],
+        "summary": "Get quiz by ID",
+        "description": "Returns a specific quiz from the database searching by ID",
+        "operationId": "getquizid",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "type": "integer",
+            "format": "int64"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "$ref": "#/definitions/Quiz"
+            }
+          },
+          "404": {
+            "description": "No questions found"
+          },
+          "500": {
+            "description": "Error occured"
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "quiz"
+        ],
+        "summary": "Update quiz by id",
+        "description": "Updates a specific quiz in the DB by ID",
+        "operationId": "putquizid",
+        "produces": [],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "description": "Quiz object",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/Quiz"
+            }
+          },
+          {
+            "in": "path",
+            "name": "id",
+            "type": "integer",
+            "description": "Quiz ID",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful=l input"
+          },
+          "201": {
+            "description": "Successful input"
+          },
+          "500": {
+            "description": "Server error"
+          }
+        },
+        "security": []
+      },
+      "delete": {
+        "tags": [
+          "quiz"
+        ],
+        "summary": "Delete quiz by id",
+        "description": "Delete a specific quiz in the DB by ID",
+        "operationId": "deletequizid",
+        "produces": [],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "description": "Quiz object",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/Quiz"
+            }
+          },
+          {
+            "in": "path",
+            "name": "id",
+            "type": "integer",
+            "description": "Quiz ID",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful input"
+          },
+          "404": {
+            "description": "Bad request"
+          },
+          "500": {
+            "description": "Server Error"
+          }
+        },
+        "security": []
+      }
+    },
+    "/quiz/{id}/questions": {
+      "get": {
+        "tags": [
+          "quiz"
+        ],
+        "summary": "Get questions from quiz by ID",
+        "description": "Returns questions of a specific quiz from the database searching by ID",
+        "operationId": "getquizquestionsid",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "type": "integer",
+            "format": "int64"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "$ref": "#/definitions/Question"
+            }
+          },
+          "404": {
+            "description": "No questions found"
+          },
+          "500": {
+            "description": "Error occured"
+          }
+        }
+      }
+    },
+    "/quiz/generaterandom/{name}/{amount}": {
+      "get": {
+        "tags": [
+          "quiz"
+        ],
+        "summary": "Generate random quiz",
+        "description": "Returns a random quiz generated using name and specified amount",
+        "operationId": "getrandomquiz",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "name",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "in": "path",
+            "name": "amount",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "successful operation",
+            "schema": {
+              "$ref": "#/definitions/Question"
+            }
+          },
+          "500": {
+            "description": "Error occured"
+          }
+        }
+      }
+    },
+    "/user/signup": {
+      "post": {
+        "tags": [
+          "user"
+        ],
+        "summary": "Adds a user",
+        "description": "Post method to add a user to the database",
+        "operationId": "postuser",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "description": "User object",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/User"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful sign up"
+          },
+          "400": {
+            "description": "Failed to sign up"
+          }
+        },
+        "security": []
+      }
+    },
+    "/user/login": {
+      "post": {
+        "tags": [
+          "user"
+        ],
+        "summary": "Logs in a user",
+        "description": "Post method to log a user in to the database",
+        "operationId": "postloginuser",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "description": "User object",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/User"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful sign up"
+          },
+          "400": {
+            "description": "Failed to sign up"
+          },
+          "401": {
+            "description": "Invalid password"
+          }
+        },
+        "security": []
+      }
+    },
+    "/user/admin-login": {
+      "post": {
+        "tags": [
+          "user"
+        ],
+        "summary": "Logs in a admin user",
+        "description": "Post method to log a admin user in to the database",
+        "operationId": "postadminuser",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "description": "User object",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/User"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful sign up"
+          },
+          "400": {
+            "description": "Failed to sign up"
+          },
+          "401": {
+            "description": "Invalid password"
+          }
+        },
+        "security": []
+      }
+    },
+    "/user/user-api-totals": {
+      "get": {
+        "tags": [
+          "user"
+        ],
+        "summary": "Gets user api totals",
+        "description": "Returns user api usage numbers",
+        "operationId": "getapiusage",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "$ref": "#/definitions/ApiTotals"
+            }
+          }
+        }
+      }
+    }
+  },
+  "securityDefinitions": {
+    "api_key": {
+      "type": "apiKey",
+      "name": "api_key",
+      "in": "header"
+    }
+  },
+  "definitions": {
+    "Question": {
+      "type": "object",
+      "properties": {
+        "description": {
+          "type": "string"
+        },
+        "answers": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "text": {
+                "type": "string"
+              },
+              "isCorrect": {
+                "type": "boolean"
+              }
+            }
+          }
+        }
+      }
+    },
+    "Quiz": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "questions": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "question": {
+                "type": "integer"
+              }
+            }
+          }
+        }
+      }
+    },
+    "User": {
+      "type": "object",
+      "properties": {
+        "user": {
+          "type": "string"
+        },
+        "pwdHash": {
+          "type": "string"
+        }
+      }
+    },
+    "ApiTotals": {
+      "type": "object",
+      "properties": {
+        "userTotals": {
+          "type": "integer"
+        },
+        "questionTotals": {
+          "type": "integer"
+        },
+        "quizTotals": {
+          "type": "integer"
+        }
+      }
+    }
+  },
+  "externalDocs": {
+    "description": "Find out more about Swagger",
+    "url": "http://swagger.io"
+  }
+}
