@@ -28,12 +28,13 @@ function Menu() {
                 <h2>Select a Quiz</h2>
                 {!!quizzes && quizzes.map((quiz) => {
                     return (
-                        // <div onClick={() => console.log("Clicked ", quiz.name)}>{quiz.name}</div>   
-                        <input id="quizBtn" name="QuizButton" value={quiz.name} type="button" onClick={() =>navigate('/quiz', {state: {quiz: quiz}})} />
+                        <div>
+                            <input id="quizBtn" name="QuizButton" value={quiz.name} type="button" onClick={() =>navigate('/quiz', {state: {quiz: quiz}})} />
+                        </div>
                     )
                 })}
             </div>
-            <input name="CreateQuiz" value="Create Quiz" label="Create Quiz" type="button" onClick={() => submitQuiz()}/>
+            <input name="CreateQuiz" value="Create Quiz" label="Create Quiz" type="button" onClick={() => navigate('/createQuiz')}/>
         </div>
     )
 }

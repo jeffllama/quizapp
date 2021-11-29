@@ -13,10 +13,6 @@ const userTotals = {
     "POST V1/API/user/admin-login" : 0
 }
 
-// router.get('/', async(req,res,next) => {
-//     res.status(200).json({yes: "YESSIR"})
-// })
-
 router.post("/signup", async (req,res,next) => {
     const body = req.body
 
