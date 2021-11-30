@@ -69,7 +69,7 @@ function Login() {
             const user = userCredential.user;
             console.log("User signed in");
             // Uncomment line below and input URL you want to go to after logging in
-            // window.location.replace("Enter Redirect URL Here");
+            navigate("/admin")
           }).catch((error) => {
             const errorCode = error.code;
             const errorMessage = error.message;
@@ -113,7 +113,7 @@ function Login() {
                           <input type="password" id="typePasswordX" className="form-control form-control-lg bg-dark text-white" onChange={(e) => {setPass(e.target.value)}}/>
                           <label className="form-label" for="typePasswordX">Password</label>
                         </div>
-                        <button className="btn btn-outline-light btn-lg px-5" type="submit" id="loginBtn">Login</button>
+                        <button className="btn btn-outline-light btn-lg px-5" type="submit" id="loginBtn" onClick={() => loginHandler()}>Login</button>
                       </div>
                       <div>
                         <p className="mb-0">Don't have an account? <a href="#!" className="text-white-50 fw-bold" id="signupBtn" onClick={() => signupHandler()}>Sign Up</a></p>
