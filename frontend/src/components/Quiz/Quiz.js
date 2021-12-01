@@ -33,7 +33,7 @@ function Quiz() {
 
     return(
         <div>
-            <h1>FUCK</h1>
+            <h1>:)</h1>
             <h2> Quizname: {quiz.name}</h2>
 
             <div id="questionsContainer">
