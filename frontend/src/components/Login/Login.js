@@ -50,7 +50,7 @@ function Login() {
             const user = userCredential.user;
             console.log("User account created and signed in.");
             // Uncomment line below and input URL you want to go to after logging in
-            // window.location.replace("Enter Redirect URL Here");
+            navigate("/")
           }).catch((error) => {
             const errorCode = error.code;
             const errorMessage = error.message;
