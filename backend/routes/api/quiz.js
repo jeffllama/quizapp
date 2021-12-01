@@ -124,19 +124,63 @@ router.delete('/:id', async (req, res) => {
         
 //     ] 
 // } 
-router.post('/', async (req, res)=>{
-    const newQuiz = new Quiz(req.body);
+
+// router.post('/', async (req, res)=>{
+//     const newQuiz = new Quiz(req.body);
+
+//     try {
+//         const post = await newQuiz.save();
+//         if(!post) throw Error("Something went wrong saving new question");
+
+//         res.status(201).json(post);
+//     } catch(err) {
+//         res.status(500).json({"error": err})
+//     }
+// });
+
+router.post('/new-quiz', async (req, res)=>{
+    const data = req.body;
+
+    const questionsList = [];
+
+    data.questions.forEach(async (question) => {
+        answersList = [];
+        question.answers.map(async (answer, idx) => {
+            const a = {}
+            a.text = answer;
+
+            if (question.isCorrect == idx) {
+                a.isCorrect = true;
+            } else {
+                a.isCorrect = false;
+            }
+            answersList.push(a)
+        })
+
+        const q = new Question({
+            description: question.question,
+            answers: answersList
+        });
+
+        const post = await q.save();
+        console.log(post)
+        questionsList.push(q)
+    });
+
+    const quiz = new Quiz({
+        name: "New Quiz 1",
+        questions: questionsList
+    });
 
     try {
-        const post = await newQuiz.save();
+        const post = await quiz.save();
         if(!post) throw Error("Something went wrong saving new question");
 
-        res.status(201).json(post);
+        res.status(200).json(post);
     } catch(err) {
         res.status(500).json({"error": err})
     }
 });
-
 
 
 module.exports = router;

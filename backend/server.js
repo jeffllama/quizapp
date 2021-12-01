@@ -12,8 +12,7 @@ const questionRoutes = require('./routes/api/question');
 const quizRoutes = require('./routes/api/quiz');
 const userRoutes = require('./routes/api/user')
 
-// app.use(cors({origin: "https://comp4537-quiz-frontend.herokuapp.com"}))
-app.use(cors({origin: "http://localhost:3000"}))
+app.use(cors({origin: "https://comp4537-quiz-frontend.herokuapp.com"}))
 
 // app.use(function(req, res, next) {
 //     res.header("Access-Control-Allow-Origin", '*');

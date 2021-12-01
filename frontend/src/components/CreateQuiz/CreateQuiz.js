@@ -1,47 +1,57 @@
+import axios from 'axios';
 import { React, useState } from 'react';
 import { useNavigate } from "react-router-dom";
 
 function CreateQuiz() {
     const defaultAnswers = { 0: "", 1: "", 2: "", 3: ""}
     const navigate = useNavigate();
-    const [questionValues, setQuestionValues] = useState("")
-    const [answerValues, setAnswerValues] = useState(["", "", "", ""])
-    const [correctAnswer, setCorrectAnswer] = useState()
 
-    const [questions, setQuestions] = useState({0: "", 1: "", 2: "", 3: "", 4: ""})
+    const [questions, setQuestions] = useState([
+        {question: "", answers: ["", "", "", ""], isCorrect: 0},
+        {question: "", answers: ["", "", "", ""], isCorrect: 0},
+        {question: "", answers: ["", "", "", ""], isCorrect: 0},
+        {question: "", answers: ["", "", "", ""], isCorrect: 0},
+        {question: "", answers: ["", "", "", ""], isCorrect: 0}
+    ])
 
     // Amount of questions and answers to be added for a quiz
     const answers = [0,1,2,3]
     const questionAmount = [0, 1, 2, 3, 4]
 
-    const handleQuestionChange = (event) => {
-        const question = event.target.value;
-        setQuestionValues(question)
-
-        let id = event.target.id;
-        setQuestions({...questions, [id]: question})
-        console.log("Current questions:", questions)
-    }
-
-    const handleAnswerChange = (event) => {
-        const id = event.target.id;
-        const answer = event.target.value;
+    const handleQuestionChange = (qNumber, event) => {
+        const q = questions;
+        q[qNumber].question = event.target.value;
+        setQuestions(q);
 
     }
 
-    const handleCorrectAnswerChange = (qNumber) => {
-        // console.log("event", event.target)
-        console.log(qNumber)
+    const handleAnswerChange = (qNumber, e, index) => {
+        console.log("handle answer change",qNumber, e.target.value, index)
+        let q = questions;
+        q[qNumber].answers[index] = e.target.value;
+        
+        setQuestions(q)
+    }
 
+    const handleCorrectAnswerChange = (qNumber, e, index) => {
+        const q = questions;
+        q[qNumber].isCorrect = index;
+        setQuestions(q);
+
+        console.log("Answer change", qNumber, index)
+        console.log(questions)
     }
     
-    const handleSubmit = (event) => {
+    const handleSubmit = async (event) => {
         event.preventDefault();
-        // Create quiz object and send to back end
-    }
+        const res = await axios.post('http://localhost:5000/API/v1/quizzes/new-quiz', {
+            name: "New Quiz 1", 
+            questions: questions
+        }); 
+        if (res.status == 200) {
+            navigate('/')
+        }
 
-    const check = () => {
-        console.log(questionValues)
     }
 
 
@@ -62,17 +72,17 @@ function CreateQuiz() {
                             <div>
                                 <tr>
                                     <td>
-                                        <input id={qNumber} type="text" name="questionText" placeholder="Enter a question..." onChange={handleQuestionChange}></input>
+                                        <input id={qNumber} type="text" name="questionText" placeholder="Enter a question..." onChange={(e) => handleQuestionChange(qNumber, e)}></input>
                                     </td>
 
-                                    {answers.map((answer) => {
+                                    {answers.map((answer, index) => {
                                         return (
                                             <tr>
                                                 <td>
-                                                    <input id={answer} type="text" name={`answer${qNumber}`} placeholder="Enter an answer" onChange={handleAnswerChange} ></input><div/>
+                                                    <input id={answer} type="text" name={`answer${qNumber}`} placeholder="Enter an answer" onChange={(e) => handleAnswerChange(qNumber, e, index)} ></input><div/>
                                                 </td>
                                                 <td>
-                                                    <input id={answer} type="radio" name={`isAnswer${qNumber}`} onChange={handleCorrectAnswerChange(qNumber)}></input>
+                                                    <input id={answer} type="radio" name={`isAnswer${qNumber}`} onChange={(e) => handleCorrectAnswerChange(qNumber, e, index)}></input>
                                                 </td>
                                             </tr>
                                         )
@@ -88,14 +98,6 @@ function CreateQuiz() {
                     </tbody>
                 </table>
                 
-                {/* <form onSubmit={handleSubmit}>
-                    <input type="text" name="nnText" placeholder="Enter your question..."></input><div/>
-                    <input type="text" name="answerText1" placeholder="Enter an answer"></input><div/>
-                    <input type="text" name="answerText2" placeholder="Enter an answer"></input><div/>
-                    <input type="text" name="answerText3" placeholder="Enter an answer"></input><div/>
-                    <input type="text" name="answerText4" placeholder="Enter an answer"></input><div/>
-                    <input type="submit" />
-                </form> */}
             </div> 
 
             <div id="submitContainer">
