@@ -9,6 +9,7 @@ function Quiz() {
     const location = useLocation();
     const [questions, setQuestions] = useState([])
     const [quiz, setQuiz] = useState(location.state.quiz)
+    const [answers, setAnswers] = useState({})
 
     const getQuestions = (async () => {
         const data = await axios.get(`http://localhost:5000/API/v1/quizzes/${quiz._id}/questions`)
@@ -26,7 +27,7 @@ function Quiz() {
 
     }
 
-    const handleChange = () => {
+    const handleChange = (answer) => {
         
     }
 
@@ -45,7 +46,7 @@ function Quiz() {
                                     {question.answers.map((answer) => {
                                         return (
                                             <div>
-                                                    <input type="radio" name={question._id} value={answer.text} /> {answer.text}
+                                                    <input type="radio" name={question._id} value={answer.value} onChange={(answer) => handleChange(answer)} /> {answer.text}
                                             </div>
                                         )
                                     })}
@@ -77,38 +78,8 @@ function Quiz() {
                         </div>
                     )
                 })} */}
+                <button onClick={() => navigate('/results')}>Submit</button>
             </div>
-
-            {/* <div id="questionsContainer">
-                    {!!questions && questions.map((question) => {
-
-                        return (
-                            <div id="questionContainer">
-                                <h5>{question.description}</h5>
-                                    <form>
-                                    {question.answers.map((answer) => {
-                                        return (
-                                            <div>
-                                                <label>
-                                                    <input 
-                                                        id="radioBtn"
-                                                        type="radio" 
-                                                        name={answer.text}
-                                                        value={answer.text} 
-                                                        onChange={() => handleChange}
-                                                    />
-                                                    {answer.text}
-                                                </label>
-                                            </div>
-                                        )
-                                    })}
-                                    </form>
-                            </div>
-                        )
-                    }) }
-                    <input id="submitBtn" type="submit" onClick={handleSubmit()}/> */}
-
-            {/* </div> */}
         </div>
     )
 }

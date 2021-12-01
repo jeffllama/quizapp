@@ -26,6 +26,7 @@ function Menu() {
             <h1>MENU BABY</h1> {/* Don't delete this line or the app will not work */}
             <div id="quizContainer">
                 <h2>Select a Quiz</h2>
+                {console.log(quizzes)}
                 {!!quizzes && quizzes.map((quiz) => {
                     return (
                         <div>
