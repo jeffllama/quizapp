@@ -44,7 +44,7 @@ function CreateQuiz() {
     
     const handleSubmit = async (event) => {
         event.preventDefault();
-        const res = await axios.post('http://localhost:5000/API/v1/quizzes/new-quiz', {
+        const res = await axios.post('https://comp4537-quiz-backend.herokuapp.com/API/v1/quizzes/new-quiz', {
             name: "New Quiz 1", 
             questions: questions
         }); 
