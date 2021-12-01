@@ -7,7 +7,7 @@ function Menu() {
     const navigate = useNavigate();
 
     const fetchQuizzes = (async () =>{
-        const data = await axios.get('http://localhost:5000/API/v1/quizzes')
+        const data = await axios.get('https://comp4537-quiz-backend.herokuapp.com/API/v1/quizzes')
         setQuizzes(data.data)
     })
 
