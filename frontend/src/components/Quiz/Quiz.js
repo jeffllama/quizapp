@@ -12,7 +12,7 @@ function Quiz() {
     const [answers, setAnswers] = useState({})
 
     const getQuestions = (async () => {
-        const data = await axios.get(`http://localhost:5000/API/v1/quizzes/${quiz._id}/questions`)
+        const data = await axios.get(`https://comp4537-quiz-backend.herokuapp.com/API/v1/quizzes/${quiz._id}/questions`)
         console.log("Retrieved questions", data)
         setQuestions(data.data.questions)
         console.log("questions", questions)
